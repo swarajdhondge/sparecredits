@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "credit-muncher",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/", "/index.html", "/play", "/m", "/llms.txt", "/v1/*", "/agent.txt", "/robots.txt", "/sitemap.xml", "/agent", "/seasons", "/privacy", "/terms", "/contact", "/refunds", "/spec/*", "/watch/*", "/v/*", "/p/*"]
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "CITY", "class_name": "City" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["City"] }],
+  "vars": {
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAF5DXEvZDTg5MWmc"
+  }
+}

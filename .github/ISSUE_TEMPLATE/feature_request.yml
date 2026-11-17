@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest an idea for Spare Credits.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please read the hard rules in [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) first. The site stays on the
+        free Cloudflare plan, runs no AI on the server and shows no free text from AIs.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What do you suggest?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Other ideas you considered
+    validations:
+      required: false

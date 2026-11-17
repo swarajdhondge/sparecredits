@@ -1,0 +1,103 @@
+/* Spare Credits · style E, the Living town.
+   Shared interface pieces. Every class starts with cm- so older cards keep their own styles.
+   Tokens come from tokens.css (loaded first). */
+
+.cm { font-family: var(--font-rounded); color: var(--fg); }
+.cm svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.cm :where(button) { font: inherit; color: inherit; -webkit-tap-highlight-color: transparent; } /* :where keeps this reset below the class rules (.cm-chip, .cm-ic, .cm-seg button ... set their own size and weight) */
+.cm :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* the floating surface: card at 92%, 1.5px ink edge, soft shadow */
+.cm-glass { background: var(--card); background: color-mix(in srgb, var(--card) 92%, transparent); border: 1.5px solid var(--fg); box-shadow: var(--shadow-label); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+
+/* buttons */
+.cm-ib { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; border: 1.5px solid var(--fg); background: var(--card); }
+.cm-ib--sm { width: 32px; height: 32px; background: var(--soft); box-shadow: none; }
+.cm-btn { height: 44px; border-radius: var(--radius-pill); border: 1.5px solid var(--fg); background: var(--soft); padding: 0 16px; font-size: 15px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap; }
+.cm-btn--main { background: var(--accent); color: var(--accent-fg); border-width: 2px; font-size: 16px; }
+.cm-btn[disabled] { opacity: .45; cursor: not-allowed; }
+.cm-ic { height: 32px; min-width: 32px; padding: 0 8px; border-radius: var(--radius-pill); border: 1.5px solid var(--fg); background: var(--soft); display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-size: 12.5px; font-weight: 800; cursor: pointer; }
+.cm-ic svg { width: 15px; height: 15px; }
+.cm-ic.is-on, .cm-chip.is-on, .cm-seg .is-on { background: var(--fg); color: var(--bg); }
+.cm-play { width: 120px; height: 56px; border-radius: var(--radius-pill); border: 2px solid var(--fg); background: var(--accent); color: var(--accent-fg); font-size: 19px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-press); }
+[data-theme=dark] .cm-play { box-shadow: 0 4px 0 #050816; }
+.cm-lnk { border: 0; background: none; padding: 0; font-size: 12.5px; font-weight: 800; color: #b4472a; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+[data-theme=dark] .cm-lnk { color: var(--accent); }
+.cm-ib:active, .cm-btn:active, .cm-ic:active, .cm-play:active { transform: scale(.94); }
+
+/* segmented control, chips, dots, badges */
+.cm-seg { display: inline-flex; background: var(--soft); border: 1.5px solid var(--fg); border-radius: var(--radius-pill); padding: 2px; gap: 2px; }
+.cm-seg button { border: 0; background: none; border-radius: var(--radius-pill); height: 30px; padding: 0 12px; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+.cm-chip { display: inline-flex; align-items: center; gap: 6px; border-radius: var(--radius-pill); height: 32px; padding: 0 12px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; flex: none; }
+.cm-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--fg); flex: none; display: inline-block; }
+.cm-badge { font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: var(--radius-pill); background: var(--soft); border: 1.5px solid var(--fg); }
+.cm-live { width: 8px; height: 8px; border-radius: 50%; background: var(--accent2); animation: cm-live 1.6s infinite; flex: none; }
+@keyframes cm-live { 0% { box-shadow: 0 0 0 0 var(--accent2); } 80%, 100% { box-shadow: 0 0 0 7px transparent; } }
+
+/* top bar: menu, team score bar, search */
+.cm-top { display: flex; gap: 8px; align-items: center; }
+.cm-score { flex: 1; height: 40px; border-radius: var(--radius-pill); display: flex; overflow: hidden; padding: 0; cursor: pointer; min-width: 0; }
+.cm-score i { display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 12.5px; font-weight: 800; color: #1b1020; flex-basis: 0; min-width: 16px; white-space: nowrap; overflow: hidden; transition: flex-grow .7s cubic-bezier(.2, .9, .25, 1.1); }
+.cm-score i + i { border-left: 1.5px solid var(--fg); }
+.cm-srch { flex: 1; min-width: 0; height: 40px; border-radius: var(--radius-pill); display: flex; align-items: center; gap: 8px; padding: 0 14px; }
+.cm-srch input { border: 0; outline: none; background: none; font: inherit; font-size: 15px; color: var(--fg); min-width: 0; flex: 1; width: 100%; }
+.cm-srch:focus-within { outline: 3px solid var(--accent); outline-offset: 1px; }
+.cm-srch input:focus-visible { outline: none; }
+
+/* labels pinned to the town: anchor at the build's top, label above with a stem */
+.cm-tag { position: relative; display: inline-block; border-radius: var(--radius-label); padding: 8px 10px; white-space: nowrap; }
+.cm-tag::after { content: ""; position: absolute; left: calc(50% + var(--sx, 0px)); bottom: -7px; width: 12px; height: 12px; background: var(--card); border-right: 1.5px solid var(--fg); border-bottom: 1.5px solid var(--fg); transform: translateX(-50%) rotate(45deg); }
+.cm-tag__h { display: flex; align-items: center; gap: 7px; font-size: 15px; font-weight: 800; }
+.cm-tag__s { font-size: 12.5px; color: var(--muted); margin: 2px 0 6px 17px; }
+.cm-tag__a { display: flex; gap: 4px; align-items: center; }
+.cm-tag__done { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 800; color: var(--accent2); margin-bottom: 4px; }
+.cm-tag__done svg { width: 14px; height: 14px; stroke-width: 3; }
+.cm-tag--pin { padding: 4px 9px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 800; display: inline-flex; gap: 5px; align-items: center; cursor: pointer; }
+.cm-tag--pin::after { width: 8px; height: 8px; bottom: -5px; }
+.cm-tag--event { padding: 6px 10px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.cm-tag--event::after { width: 9px; height: 9px; bottom: -6px; }
+.cm-tag--plot { background: var(--accent); color: var(--accent-fg); border: 1.5px solid var(--fg); font-size: 13px; font-weight: 800; padding: 6px 12px; border-radius: var(--radius-pill); }
+.cm-tag--plot::after { background: var(--accent); }
+
+/* off-screen news: an arrow chip at the edge, the arrow turned toward the build */
+.cm-edge { border-radius: var(--radius-pill); padding: 5px 10px 5px 6px; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.cm-edge__ar { width: 22px; height: 22px; border-radius: 50%; background: var(--accent2); color: #10231c; display: grid; place-items: center; flex: none; }
+.cm-edge__ar svg { width: 14px; height: 14px; stroke-width: 3; }
+
+/* popovers under the top bar: menu and scores */
+.cm-pop { border-radius: var(--radius-dock); padding: 10px 12px; font-size: 14px; }
+.cm-pop__h { font-size: 12.5px; color: var(--muted); font-weight: 700; margin: 2px 0 6px; }
+.cm-mi { display: flex; align-items: center; width: 100%; border: 0; background: none; padding: 8px 6px; border-radius: 10px; cursor: pointer; font-size: 14.5px; font-weight: 700; text-align: left; }
+.cm-mi:hover { background: var(--soft); }
+.cm-mi small { margin-left: auto; color: var(--muted); font: 12px var(--font-mono); }
+.cm-sc { display: grid; grid-template-columns: auto 82px 1fr auto; align-items: center; gap: 8px; width: 100%; border: 0; background: none; padding: 6px; border-radius: 10px; cursor: pointer; font-size: 13.5px; font-weight: 700; text-align: left; }
+.cm-sc:hover { background: var(--soft); }
+.cm-sc__bar { display: block; height: 8px; border-radius: 4px; background: var(--soft); overflow: hidden; }
+.cm-sc__bar i { display: block; height: 100%; background: var(--tc); border-radius: 4px; }
+.cm-note { font-size: 11.5px; color: var(--muted); margin: 8px 0 0; line-height: 1.4; }
+
+/* the Play dock: one or two lines at the bottom, never a full sheet */
+.cm-dock { border-radius: var(--radius-dock); padding: 10px; display: flex; gap: 8px; flex-direction: column; }
+.cm-dock__h { display: flex; align-items: center; gap: 8px; min-height: 32px; font-size: 15px; font-weight: 800; }
+.cm-steps { display: inline-flex; gap: 4px; }
+.cm-steps i { width: 14px; height: 5px; border-radius: 3px; background: var(--soft); border: 1px solid var(--fg); }
+.cm-steps i.is-on { background: var(--accent); width: 22px; }
+.cm-teams { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.cm-team { border: 1.5px solid var(--fg); background: var(--soft); border-radius: 16px; padding: 8px 4px 6px; display: grid; justify-items: center; gap: 4px; cursor: pointer; font-size: 12.5px; font-weight: 800; }
+.cm-team__av { width: 26px; height: 26px; border-radius: 50%; background: var(--tc); border: 1.5px solid var(--fg); }
+.cm-row { display: flex; gap: 6px; align-items: center; }
+.cm-fld { flex: 1; min-width: 0; height: 44px; border: 1.5px solid var(--fg); border-radius: var(--radius-field); padding: 0 12px; background: var(--bg); font: inherit; font-size: 15px; color: var(--fg); outline: none; box-sizing: border-box; }
+.cm-fld:focus { outline: 3px solid var(--accent); outline-offset: 1px; }
+.cm-fld.is-bad { border-color: var(--err); }
+.cm-msg { font: 11.5px/1.4 var(--font-mono); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cm-err { color: var(--err); font-size: 12.5px; font-weight: 700; margin: -2px 0 0; }
+.cm-spin { width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--soft); border-top-color: var(--accent); animation: cm-sp .8s linear infinite; flex: none; }
+@keyframes cm-sp { to { transform: rotate(360deg); } }
+
+/* search results along the bottom */
+.cm-rc { flex: none; border-radius: 14px; padding: 7px 11px; cursor: pointer; text-align: left; display: grid; gap: 1px; }
+.cm-rc b { font-size: 13.5px; display: flex; align-items: center; gap: 6px; }
+.cm-rc small { font-size: 11.5px; color: var(--muted); }
+
+/* a strip of town ground for previews */
+.cm-ground { background: repeating-conic-gradient(var(--map-grass) 0 25%, var(--map-grass-2) 0 50%) 0 0 / 40px 40px; }

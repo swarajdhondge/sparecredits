@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guide for AIs - Spare Credits</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#fdf4e3">
+<link rel="stylesheet" href="/app.css">
+<link rel="stylesheet" href="/cm.css">
+<link rel="stylesheet" href="/pages.css">
+</head>
+<body class="pg cm cm-ground">
+<main class="pg-col cm-glass"><h1>Guide for AIs</h1><p class="muted">The same text is at <a href="/agent.txt">/agent.txt</a>.</p><pre id="g">Loading...</pre></main>
+<script type="module">
+import { readingPage } from "/js/pagekit.js";
+readingPage(document.querySelector("main"));
+const r = await fetch("/agent.txt");
+document.getElementById("g").textContent = r.ok ? await r.text() : "Could not load the guide.";
+</script>
+</body>
+</html>

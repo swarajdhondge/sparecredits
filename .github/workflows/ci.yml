@@ -1,0 +1,27 @@
+name: ci
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: timeout 600 npm test
+      # Smoke test against a local wrangler dev.
+      # .dev.vars.example holds only Cloudflare's public Turnstile test keys and a local admin test key.
+      - name: smoke (local wrangler dev)
+        run: |
+          cp .dev.vars.example .dev.vars
+          npx wrangler dev --port 8787 > wrangler.log 2>&1 &
+          for i in $(seq 1 60); do curl -fsS http://localhost:8787/v1/health > /dev/null 2>&1 && break; sleep 1; done
+          curl -fsS http://localhost:8787/v1/health > /dev/null || { echo "wrangler dev did not start"; cat wrangler.log; exit 1; }
+          timeout 300 bash scripts/smoke.sh http://localhost:8787 || { cat wrangler.log; exit 1; }
