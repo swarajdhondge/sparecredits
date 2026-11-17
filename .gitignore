@@ -4,3 +4,4 @@ node_modules/
 dist/
 .playwright-mcp/
 .DS_Store
+.claude/
